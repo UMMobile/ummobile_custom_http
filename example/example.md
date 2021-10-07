@@ -1,7 +1,4 @@
-Custom HTTP client for the UMMobile app
-
-# Getting Started
-## Initialization
+# Initialization
 A base URL and a static authorization can be defined in the initialization.
 ```dart
 // Simple initalization
@@ -18,7 +15,7 @@ final http = UMMobileCustomHttp(
 );
 ```
 
-## HTTP Calls
+# HTTP Calls
 To make a call you need to use the function that start with `custom`.
 ```dart
 final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');\
@@ -44,7 +41,7 @@ await http.customGet<Post>(
 );
 ```
 
-## Exceptions
+# Exceptions
 Throws an `OnCallException` if an error occurs. The `OnCalLException` contains a `type` attribute that can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
 | Type                     | Case                                        |
 |--------------------------|---------------------------------------------|

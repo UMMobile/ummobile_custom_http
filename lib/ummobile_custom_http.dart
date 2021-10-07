@@ -46,7 +46,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -75,7 +75,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -106,7 +106,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -137,7 +137,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -168,7 +168,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|

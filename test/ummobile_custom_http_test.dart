@@ -57,17 +57,15 @@ void main() {
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
       try {
         await http.customPost<PostTest>(
-            path: '/posts',
-            body: 'wrong_body',
-            mapper: (json) {
-              print(json);
-              return PostTest(
-                userId: json['userId'],
-                id: json['id'],
-                title: json['title'],
-                body: json['body'],
-              );
-            });
+          path: '/posts',
+          body: 'wrong_body',
+          mapper: (json) => PostTest(
+            userId: json['userId'],
+            id: json['id'],
+            title: json['title'],
+            body: json['body'],
+          ),
+        );
       } catch (e) {
         expect(e, isA<OnCallException>());
         if (e is OnCallException) {
