@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
-import 'package:ummobile_custom_http/src/exceptions/on_call_exception.dart';
+import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
 
 class PostTest {

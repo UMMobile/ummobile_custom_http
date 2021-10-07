@@ -9,12 +9,12 @@ import 'dart:convert';
 import 'package:get/get_connect.dart';
 import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 import 'package:ummobile_custom_http/src/enums/http_methods.dart';
-import 'package:ummobile_custom_http/src/exceptions/on_call_exception.dart';
+import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
 import 'package:ummobile_custom_http/src/models/auth.dart';
 
 // Export components
 export 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
-export 'package:ummobile_custom_http/src/exceptions/on_call_exception.dart';
+export 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
 export 'package:ummobile_custom_http/src/models/auth.dart';
 
 /// A Custom HTTP client
