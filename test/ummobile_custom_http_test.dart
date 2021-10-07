@@ -43,8 +43,8 @@ void main() {
       try {
         await http.customGet<PostTest>(path: '/wonrg_path');
       } catch (e) {
-        expect(e, isA<OnCallException>());
-        if (e is OnCallException) {
+        expect(e, isA<HttpCallException>());
+        if (e is HttpCallException) {
           expect(e.type, HttpExceptions.ClientError);
         }
       }
@@ -67,8 +67,8 @@ void main() {
           ),
         );
       } catch (e) {
-        expect(e, isA<OnCallException>());
-        if (e is OnCallException) {
+        expect(e, isA<HttpCallException>());
+        if (e is HttpCallException) {
           expect(e.type, HttpExceptions.ServerError);
         }
       }

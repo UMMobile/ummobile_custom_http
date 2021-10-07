@@ -12,6 +12,11 @@ import 'package:ummobile_custom_http/src/enums/http_methods.dart';
 import 'package:ummobile_custom_http/src/exceptions/on_call_exception.dart';
 import 'package:ummobile_custom_http/src/models/auth.dart';
 
+// Export components
+export 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
+export 'package:ummobile_custom_http/src/exceptions/on_call_exception.dart';
+export 'package:ummobile_custom_http/src/models/auth.dart';
+
 /// A Custom HTTP client
 class UMMobileCustomHttp extends GetConnect {
   /// Main constructor of the Custom HTTP client
@@ -46,7 +51,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -75,7 +80,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -106,7 +111,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -137,7 +142,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -168,7 +173,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
-  /// Throws an [OnCallException] if an error occurs. The [OnCalLException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
   /// |Type                      | Case                                        |
   /// |--------------------------|---------------------------------------------|
@@ -219,14 +224,14 @@ class UMMobileCustomHttp extends GetConnect {
                 : response.body)
             : response.body;
       } else if (response.status.between(300, 499)) {
-        throw OnCallException(HttpExceptions.ClientError);
+        throw HttpCallException(HttpExceptions.ClientError);
       } else if (response.status.isServerError) {
-        throw OnCallException(HttpExceptions.ServerError);
+        throw HttpCallException(HttpExceptions.ServerError);
       } else if (response.status.connectionError) {
-        throw OnCallException(HttpExceptions.ClientConnectionError);
+        throw HttpCallException(HttpExceptions.ClientConnectionError);
       }
     } on TimeoutException catch (_) {
-      throw OnCallException(HttpExceptions.RequestTimeout);
+      throw HttpCallException(HttpExceptions.RequestTimeout);
     }
     return data;
   }

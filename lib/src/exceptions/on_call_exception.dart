@@ -1,7 +1,7 @@
 import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 
 // The Exception that is thrown if an error ocurrs
-class OnCallException implements Exception {
+class HttpCallException implements Exception {
   /// The type of Exception.
   ///
   /// Can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
@@ -17,7 +17,7 @@ class OnCallException implements Exception {
   /// The constructor for the exception.
   ///
   /// Receive the [type] of the exception.
-  OnCallException(HttpExceptions? type)
+  HttpCallException(HttpExceptions? type)
       : this.type = type ?? HttpExceptions.Other;
 
   @override

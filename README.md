@@ -45,7 +45,7 @@ await http.customGet<Post>(
 ```
 
 ## Exceptions
-Throws an `OnCallException` if an error occurs. The `OnCalLException` contains a `type` attribute that can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+Throws an `HttpCallException` if an error occurs. The `HttpCallException` contains a `type` attribute that can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
 | Type                     | Case                                        |
 |--------------------------|---------------------------------------------|
 | `ClientError`            | When the status code is between 300 and 499 |
@@ -58,7 +58,7 @@ You can use the Exception like:
 final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
 try {
   await http.customGet(path: '/posts/1');
-} on OnCallException catch(e) {
+} on HttpCallException catch(e) {
   if(e.type === HttpException.ClientConnectionError) {
     // display that the client have no connection
   }
