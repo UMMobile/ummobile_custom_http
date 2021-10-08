@@ -4,14 +4,16 @@ import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 class HttpCallException implements Exception {
   /// The type of Exception.
   ///
-  /// Can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
+  /// Can be as shown in the table below:
   ///
-  /// |Type                      | Case                                        |
-  /// |--------------------------|---------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499 |
-  /// | `ServerError`            | When the status code is between 500 and 599 |
-  /// | `ClientConnectionError`  | When the status code is null                |
-  /// | `RequestTimeout`         | When a request timeout occurs               |
+  /// |Type                      | Case                                                   |
+  /// |--------------------------|--------------------------------------------------------|
+  /// | `ClientError`            | When the status code is between 300 and 499            |
+  /// | `ServerError`            | When the status code is between 500 and 599            |
+  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
+  /// | `ServerDown`             | When cannot connect to the backend                     |
+  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `Other`                  | When any other `Exception` occurs                      |
   HttpExceptions type;
 
   /// The constructor for the exception.
@@ -25,12 +27,14 @@ class HttpCallException implements Exception {
     switch (this.type) {
       case HttpExceptions.ClientError:
         return 'clientError';
-      case HttpExceptions.ClientConnectionError:
-        return 'clientConnectionError';
       case HttpExceptions.ServerError:
         return 'serverError';
-      case HttpExceptions.RequestTimeout:
-        return 'requestTimeout';
+      case HttpExceptions.ConnectionError:
+        return 'connectionError';
+      case HttpExceptions.ServerDown:
+        return 'serverDown';
+      case HttpExceptions.ClientOffline:
+        return 'clientOffline';
       case HttpExceptions.Other:
         return 'other';
     }

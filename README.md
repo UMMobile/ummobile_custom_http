@@ -45,13 +45,14 @@ await http.customGet<Post>(
 ```
 
 ## Exceptions
-Throws an `HttpCallException` if an error occurs. The `HttpCallException` contains a `type` attribute that can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
-| Type                     | Case                                        |
-|--------------------------|---------------------------------------------|
-| `ClientError`            | When the status code is between 300 and 499 |
-| `ServerError`            | When the status code is between 500 and 599 |
-| `ClientConnectionError`  | When the status code is null                |
-| `RequestTimeout`         | When a request timeout occurs               |
+Throws an `HttpCallException` if an error occurs. The `HttpCallException` contains a `type` attribute that can be as shown in the list below:
+
+- `ClientError`: when the status code is between 300 and 499.
+- `ServerError`: when the status code is between 500 and 599.
+- `ConnectionError`: when a connection error occurs and cannot be specified.
+- `ServerDown`: when cannot connect to the backend.
+- `ClientOffline`: when cannot connect to `yahoo.com`.
+- `Other`: when any other `Exception` occurs.
 
 You can use the Exception like:
 ```dart
@@ -59,7 +60,7 @@ final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com')
 try {
   await http.customGet(path: '/posts/1');
 } on HttpCallException catch(e) {
-  if(e.type === HttpException.ClientConnectionError) {
+  if(e.type === HttpException.ClientOffline) {
     // display that the client have no connection
   }
 }
