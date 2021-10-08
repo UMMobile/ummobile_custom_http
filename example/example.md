@@ -18,7 +18,7 @@ final http = UMMobileCustomHttp(
 # HTTP Calls
 To make a call you need to use the function that start with `custom`.
 ```dart
-final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');\
+final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
 
 await http.customGet(path: '/posts/1');
 await http.customPost(path: '/posts/1', body: {});

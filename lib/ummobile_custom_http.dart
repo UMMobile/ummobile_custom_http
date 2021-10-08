@@ -49,7 +49,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] function receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] can be decoded to utf8 if [utf8Decode] is set to `true`.
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be: `ClientError`, `ServerError`, `ClientConnectionError` or `RequestTimeout` as shown in the table below:
   ///
