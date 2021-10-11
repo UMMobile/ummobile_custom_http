@@ -4,6 +4,10 @@
 
 ## 0.0.2-beta1
 > Release date: 08/Oct/2021
-- Add checkInternetError function
-- Add more HttpExceptions
-- Update docs
+- Adds checkInternetError function
+- Adds more HttpExceptions
+- Updates docs
+
+## 0.0.2-beta2
+> Release date: 11/Oct/2021
+- Updates `utf8Decode` default value to `false`
