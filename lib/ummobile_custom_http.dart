@@ -48,9 +48,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a GET call.
   ///
-  /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] function receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] function receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
   ///
@@ -79,9 +79,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a PATH call.
   ///
-  /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
   ///
@@ -112,9 +112,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a PUT call.
   ///
-  /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
   ///
@@ -145,9 +145,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a POST call.
   ///
-  /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
   ///
@@ -178,9 +178,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a DELETE call.
   ///
-  /// Can receive a [path] but is not madnatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
-  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true`.
+  /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
   /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
   ///
@@ -216,7 +216,7 @@ class UMMobileCustomHttp extends GetConnect {
     T Function(dynamic)? mapper,
     bool? utf8Decode,
   }) async {
-    bool _utf8Decode = utf8Decode ?? true;
+    bool _utf8Decode = utf8Decode ?? false;
     late T data;
     try {
       Response response = await _call(method,
