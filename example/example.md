@@ -41,6 +41,19 @@ await http.customGet<Post>(
 );
 ```
 
+To pass queries use the `queries` argument.
+```dart
+final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
+
+// Get comments for the post with id 1
+await http.customGet<List<dynamic>>(
+  path: '/comments',
+  queries: {
+    'postId': 1,
+  },
+);
+```
+
 # Exceptions
 Throws an `HttpCallException` if an error occurs. The `HttpCallException` contains a `type` attribute that can be as shown in the list below:
 

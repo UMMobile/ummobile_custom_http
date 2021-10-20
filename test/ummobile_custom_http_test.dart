@@ -18,8 +18,8 @@ class PostTest {
 }
 
 void main() {
-  group('GET>>', () {
-    test('Make a call', () async {
+  group('[GET]', () {
+    test('Make a call: with mapper', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
 
@@ -37,6 +37,20 @@ void main() {
       expect(todo.id, 1);
     });
 
+    test('Make a call: with queries', () async {
+      final http =
+          UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
+
+      List<dynamic> comments = await http.customGet<List<dynamic>>(
+        path: '/comments',
+        queries: {
+          'postId': 1,
+        },
+      );
+
+      expect(comments, hasLength(5));
+    });
+
     test('Client error: wrong path', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
@@ -51,7 +65,7 @@ void main() {
     });
   });
 
-  group('POST>>', () {
+  group('[POST]', () {
     test('Server error: wrong body', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');

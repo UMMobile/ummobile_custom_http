@@ -48,7 +48,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a GET call.
   ///
-  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  ///
+  /// The [queries] values are transformed to string.
   ///
   /// The [mapper] function receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
@@ -64,6 +66,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customGet<T>({
     String path: '',
+    Map<String, dynamic> queries: const {},
     Map<String, String> headers: const {},
     T Function(dynamic)? mapper,
     Duration? customTimeout,
@@ -72,6 +75,7 @@ class UMMobileCustomHttp extends GetConnect {
       await _baseCall<T>(
           method: HttpMethods.GET,
           path: path,
+          queries: queries,
           headers: headers,
           mapper: mapper,
           customTimeout: customTimeout,
@@ -79,7 +83,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a PATH call.
   ///
-  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  ///
+  /// The [queries] values are transformed to string.
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
@@ -95,6 +101,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPatch<T>({
     String path: '',
+    Map<String, dynamic> queries: const {},
     dynamic body,
     Map<String, String> headers: const {},
     T Function(dynamic)? mapper,
@@ -104,6 +111,7 @@ class UMMobileCustomHttp extends GetConnect {
       await _baseCall<T>(
           method: HttpMethods.PATCH,
           path: path,
+          queries: queries,
           body: body,
           mapper: mapper,
           headers: headers,
@@ -112,7 +120,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a PUT call.
   ///
-  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  ///
+  /// The [queries] values are transformed to string.
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
@@ -128,6 +138,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPut<T>({
     String path: '',
+    Map<String, dynamic> queries: const {},
     dynamic body,
     Map<String, String> headers: const {},
     T Function(dynamic)? mapper,
@@ -137,6 +148,7 @@ class UMMobileCustomHttp extends GetConnect {
       await _baseCall<T>(
           method: HttpMethods.PUT,
           path: path,
+          queries: queries,
           body: body,
           mapper: mapper,
           headers: headers,
@@ -145,7 +157,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a POST call.
   ///
-  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  ///
+  /// The [queries] values are transformed to string.
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
@@ -161,6 +175,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPost<T>({
     String path: '',
+    Map<String, dynamic> queries: const {},
     dynamic body,
     Map<String, String> headers: const {},
     T Function(dynamic)? mapper,
@@ -170,6 +185,7 @@ class UMMobileCustomHttp extends GetConnect {
       await _baseCall<T>(
           method: HttpMethods.POST,
           path: path,
+          queries: queries,
           body: body,
           mapper: mapper,
           headers: headers,
@@ -178,7 +194,9 @@ class UMMobileCustomHttp extends GetConnect {
 
   /// Make a DELETE call.
   ///
-  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], a [mapper], a [customTimeout] and if the response should be [utf8Decode].
+  ///
+  /// The [queries] values are transformed to string.
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
@@ -194,6 +212,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customDelete<T>({
     String path: '',
+    Map<String, dynamic> queries: const {},
     Map<String, String> headers: const {},
     T Function(dynamic)? mapper,
     Duration? customTimeout,
@@ -202,6 +221,7 @@ class UMMobileCustomHttp extends GetConnect {
       await _baseCall<T>(
           method: HttpMethods.DELETE,
           path: path,
+          queries: queries,
           headers: headers,
           mapper: mapper,
           customTimeout: customTimeout,
@@ -210,6 +230,7 @@ class UMMobileCustomHttp extends GetConnect {
   Future<T> _baseCall<T>({
     required HttpMethods method,
     String path: '',
+    Map<String, dynamic> queries: const {},
     dynamic body,
     Map<String, String> headers: const {},
     Duration? customTimeout,
@@ -219,8 +240,10 @@ class UMMobileCustomHttp extends GetConnect {
     bool _utf8Decode = utf8Decode ?? false;
     late T data;
     try {
+      String _queries = _formatQueries(queries);
+
       Response response = await _call(method,
-          path: path,
+          path: '$path$_queries',
           body: body,
           headers: headers,
           customTimeout: customTimeout);
@@ -294,5 +317,11 @@ class UMMobileCustomHttp extends GetConnect {
                 headers: headers, query: query, contentType: 'application/json')
             .timeout(durationTimeout);
     }
+  }
+
+  String _formatQueries(Map<String, dynamic> queries) {
+    String _queries =
+        queries.entries.map((e) => '${e.key}=${e.value}').toList().join('&');
+    return _queries.isNotEmpty ? '?$_queries' : '';
   }
 }
