@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
@@ -18,6 +21,20 @@ class PostTest {
 }
 
 void main() {
+  String testToken = Platform.environment['TOKEN'] ?? '';
+  String execEnv = env['EXEC_ENV'] ?? Platform.environment['EXEC_ENV'] ?? '';
+
+  if (execEnv != 'github_actions') {
+    setUpAll(() async {
+      load();
+      testToken = env['TOKEN'] ?? testToken;
+    });
+
+    tearDownAll(() {
+      clean();
+    });
+  }
+
   group('[GET]', () {
     test('Make a call: with mapper', () async {
       final http =
@@ -62,6 +79,24 @@ void main() {
           expect(e.type, HttpExceptions.ClientError);
         }
       }
+    });
+
+    test('Get documents: throws ExpiredToken', () async {
+      final http = UMMobileCustomHttp(
+        baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+        auth: Auth(token: () => testToken),
+      );
+      bool shouldBeTrue = true;
+      try {
+        await http.customGet(path: '/documents');
+        shouldBeTrue = false;
+      } catch (e) {
+        expect(e, isA<HttpCallException>());
+        if (e is HttpCallException) {
+          expect(e.type, HttpExceptions.ExpiredToken);
+        }
+      }
+      expect(shouldBeTrue, isTrue);
     });
   });
 

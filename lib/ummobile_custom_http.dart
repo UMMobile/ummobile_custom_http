@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get/get_connect.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 import 'package:ummobile_custom_http/src/enums/http_methods.dart';
 import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
@@ -20,6 +21,9 @@ export 'package:ummobile_custom_http/src/models/auth.dart';
 
 /// A Custom HTTP client
 class UMMobileCustomHttp extends GetConnect {
+  /// The the authorization requests.
+  Auth? auth;
+
   /// Main constructor of the Custom HTTP client
   ///
   /// Require the [baseUrl] where the calls will be sent. Example of a [baseUrl]: `https://jsonplaceholder.typicode.com`. Each request (`get`, `post`, etc.) can receive it's own path that is concatenated with the [baseUrl].
@@ -28,19 +32,20 @@ class UMMobileCustomHttp extends GetConnect {
   UMMobileCustomHttp({
     required String baseUrl,
     Duration timeout: const Duration(seconds: 10),
-    Auth? auth,
+    this.auth,
   }) {
     // Set the base url
     httpClient.baseUrl = baseUrl;
     // Set the timeout
     httpClient.timeout = timeout;
     // Set the auth
-    if (auth != null) {
+    if (this.auth != null) {
       httpClient.addAuthenticator<dynamic>((request) {
-        String _token = auth.token();
-        String _auth =
-            auth.tokenType != '' ? '${auth.tokenType} $_token' : _token;
-        request.headers[auth.headerName] = _auth;
+        String _token = this.auth!.token();
+        String _auth = this.auth!.tokenType != ''
+            ? '${this.auth!.tokenType} $_token'
+            : _token;
+        request.headers[this.auth!.headerName] = _auth;
         return request;
       });
     }
@@ -63,6 +68,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customGet<T>({
     String path: '',
@@ -98,6 +104,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPatch<T>({
     String path: '',
@@ -135,6 +142,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPut<T>({
     String path: '',
@@ -172,6 +180,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customPost<T>({
     String path: '',
@@ -209,6 +218,7 @@ class UMMobileCustomHttp extends GetConnect {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   Future<T> customDelete<T>({
     String path: '',
@@ -258,6 +268,12 @@ class UMMobileCustomHttp extends GetConnect {
                 : response.body)
             : response.body;
       } else if (response.status.between(300, 499)) {
+        if (this.auth != null && response.status.isUnauthorized) {
+          bool isExpired = Jwt.isExpired(this.auth!.token());
+          if (isExpired) {
+            throw HttpCallException(HttpExceptions.ExpiredToken);
+          }
+        }
         throw HttpCallException(HttpExceptions.ClientError);
       } else if (response.status.isServerError) {
         throw HttpCallException(HttpExceptions.ServerError);

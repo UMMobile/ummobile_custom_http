@@ -13,6 +13,7 @@ class HttpCallException implements Exception {
   /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
   /// | `ServerDown`             | When cannot connect to the backend                     |
   /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
+  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
   /// | `Other`                  | When any other `Exception` occurs                      |
   HttpExceptions type;
 
@@ -35,6 +36,8 @@ class HttpCallException implements Exception {
         return 'serverDown';
       case HttpExceptions.ClientOffline:
         return 'clientOffline';
+      case HttpExceptions.ExpiredToken:
+        return 'expiredToken';
       case HttpExceptions.Other:
         return 'other';
     }

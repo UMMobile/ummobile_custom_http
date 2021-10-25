@@ -5,5 +5,6 @@ enum HttpExceptions {
   ConnectionError,
   ServerDown,
   ClientOffline,
+  ExpiredToken,
   Other,
 }
