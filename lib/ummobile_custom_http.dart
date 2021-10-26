@@ -55,17 +55,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] function receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
-  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
-  ///
-  /// |Type                      | Case                                                   |
-  /// |--------------------------|--------------------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499            |
-  /// | `ServerError`            | When the status code is between 500 and 599            |
-  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
-  /// | `ServerDown`             | When cannot connect to the backend                     |
-  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
-  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
-  /// | `Other`                  | When any other `Exception` occurs                      |
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] types can be as shown in the table in the [HttpCallException] constructor.
   Future<T> customGet<T>({
     String path: '',
     Map<String, dynamic> queries: const {},
@@ -83,7 +73,7 @@ class UMMobileCustomHttp extends GetConnect {
           customTimeout: customTimeout,
           utf8Decode: utf8Decode);
 
-  /// Make a PATH call.
+  /// Make a PATCH call.
   ///
   /// Can receive a [path] but is not mandatory because can be a call to base URL. Also can receive [queries], extra [headers], the [body] of the request, a [mapper], a [customTimeout] and if the response should be [utf8Decode].
   ///
@@ -91,17 +81,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
-  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
-  ///
-  /// |Type                      | Case                                                   |
-  /// |--------------------------|--------------------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499            |
-  /// | `ServerError`            | When the status code is between 500 and 599            |
-  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
-  /// | `ServerDown`             | When cannot connect to the backend                     |
-  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
-  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
-  /// | `Other`                  | When any other `Exception` occurs                      |
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] types can be as shown in the table in the [HttpCallException] constructor.
   Future<T> customPatch<T>({
     String path: '',
     Map<String, dynamic> queries: const {},
@@ -129,17 +109,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
-  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
-  ///
-  /// |Type                      | Case                                                   |
-  /// |--------------------------|--------------------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499            |
-  /// | `ServerError`            | When the status code is between 500 and 599            |
-  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
-  /// | `ServerDown`             | When cannot connect to the backend                     |
-  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
-  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
-  /// | `Other`                  | When any other `Exception` occurs                      |
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] types can be as shown in the table in the [HttpCallException] constructor.
   Future<T> customPut<T>({
     String path: '',
     Map<String, dynamic> queries: const {},
@@ -167,17 +137,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
-  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
-  ///
-  /// |Type                      | Case                                                   |
-  /// |--------------------------|--------------------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499            |
-  /// | `ServerError`            | When the status code is between 500 and 599            |
-  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
-  /// | `ServerDown`             | When cannot connect to the backend                     |
-  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
-  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
-  /// | `Other`                  | When any other `Exception` occurs                      |
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] types can be as shown in the table in the [HttpCallException] constructor.
   Future<T> customPost<T>({
     String path: '',
     Map<String, dynamic> queries: const {},
@@ -205,17 +165,7 @@ class UMMobileCustomHttp extends GetConnect {
   ///
   /// The [mapper] funtion receive the response body (usually JSON) as the only parameter and return the type defined by the function with `T`. If no [mapper] function is declared then the returned data is the response body. Before pass the response body to the [mapper] function can be decoded to utf8 if [utf8Decode] is set to `true` (default `false`: use response `Content-Type` to know how to decode).
   ///
-  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] type can be as shown in the table below:
-  ///
-  /// |Type                      | Case                                                   |
-  /// |--------------------------|--------------------------------------------------------|
-  /// | `ClientError`            | When the status code is between 300 and 499            |
-  /// | `ServerError`            | When the status code is between 500 and 599            |
-  /// | `ConnectionError`        | When a connection error occurs and cannot be specified |
-  /// | `ServerDown`             | When cannot connect to the backend                     |
-  /// | `ClientOffline`          | When cannot connect to `yahoo.com`                     |
-  /// | `ExpiredToken`           | When access token is expired & need to be refresh      |
-  /// | `Other`                  | When any other `Exception` occurs                      |
+  /// Throws an [HttpCallException] if an error occurs. The [HttpCallException] types can be as shown in the table in the [HttpCallException] constructor.
   Future<T> customDelete<T>({
     String path: '',
     Map<String, dynamic> queries: const {},
