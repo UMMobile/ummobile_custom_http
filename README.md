@@ -52,6 +52,7 @@ Throws an `HttpCallException` if an error occurs. The `HttpCallException` contai
 - `ConnectionError`: when a connection error occurs and cannot be specified.
 - `ServerDown`: when cannot connect to the backend.
 - `ClientOffline`: when cannot connect to `yahoo.com`.
+- `ExpiredToken`: when access token is expired & need to be refresh.
 - `Other`: when any other `Exception` occurs.
 
 You can use the Exception like:

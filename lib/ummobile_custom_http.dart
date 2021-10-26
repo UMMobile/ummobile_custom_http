@@ -41,11 +41,7 @@ class UMMobileCustomHttp extends GetConnect {
     // Set the auth
     if (this.auth != null) {
       httpClient.addAuthenticator<dynamic>((request) {
-        String _token = this.auth!.token();
-        String _auth = this.auth!.tokenType != ''
-            ? '${this.auth!.tokenType} $_token'
-            : _token;
-        request.headers[this.auth!.headerName] = _auth;
+        request.headers[this.auth!.headerName] = this.auth!.format;
         return request;
       });
     }

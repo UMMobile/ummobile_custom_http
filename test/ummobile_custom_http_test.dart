@@ -35,6 +35,17 @@ void main() {
     });
   }
 
+  group('[Initialization]', () {
+    test('Create a new UMMobileCustomHttp instance', () {
+      UMMobileCustomHttp http = UMMobileCustomHttp(
+        baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+        auth: Auth(token: () => testToken),
+      );
+
+      expect(http, isNotNull);
+    });
+  });
+
   group('[GET]', () {
     test('Make a call: with mapper', () async {
       final http =
@@ -67,41 +78,22 @@ void main() {
 
       expect(comments, hasLength(5));
     });
-
-    test('Client error: wrong path', () async {
-      final http =
-          UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
-      try {
-        await http.customGet<PostTest>(path: '/wonrg_path');
-      } catch (e) {
-        expect(e, isA<HttpCallException>());
-        if (e is HttpCallException) {
-          expect(e.type, HttpExceptions.ClientError);
-        }
-      }
-    });
-
-    test('Get documents: throws ExpiredToken', () async {
-      final http = UMMobileCustomHttp(
-        baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
-        auth: Auth(token: () => testToken),
-      );
-      bool shouldBeTrue = true;
-      try {
-        await http.customGet(path: '/documents');
-        shouldBeTrue = false;
-      } catch (e) {
-        expect(e, isA<HttpCallException>());
-        if (e is HttpCallException) {
-          expect(e.type, HttpExceptions.ExpiredToken);
-        }
-      }
-      expect(shouldBeTrue, isTrue);
-    });
   });
 
-  group('[POST]', () {
-    test('Server error: wrong body', () async {
+  group('[Exceptions]', () {
+    test('Invalid JWT', () {
+      try {
+        UMMobileCustomHttp(
+          baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+          auth: Auth(token: () => 'this_is_not_a_json_web_token'),
+        );
+      } catch (e) {
+        expect(e, isA<FormatException>());
+        expect(e.toString(), 'FormatException: Invalid token.');
+      }
+    });
+
+    test('ServerError', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
       try {
@@ -121,6 +113,37 @@ void main() {
           expect(e.type, HttpExceptions.ServerError);
         }
       }
+    });
+
+    test('ClientError', () async {
+      final http =
+          UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
+      try {
+        await http.customGet<PostTest>(path: '/wonrg_path');
+      } catch (e) {
+        expect(e, isA<HttpCallException>());
+        if (e is HttpCallException) {
+          expect(e.type, HttpExceptions.ClientError);
+        }
+      }
+    });
+
+    test('ExpiredToken', () async {
+      final http = UMMobileCustomHttp(
+        baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+        auth: Auth(token: () => testToken),
+      );
+      bool shouldBeTrue = true;
+      try {
+        await http.customGet(path: '/documents');
+        shouldBeTrue = false;
+      } catch (e) {
+        expect(e, isA<HttpCallException>());
+        if (e is HttpCallException) {
+          expect(e.type, HttpExceptions.ExpiredToken);
+        }
+      }
+      expect(shouldBeTrue, isTrue);
     });
   });
 }
