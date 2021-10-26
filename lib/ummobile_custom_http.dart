@@ -215,9 +215,16 @@ class UMMobileCustomHttp extends GetConnect {
             : response.body;
       } else if (response.status.between(300, 499)) {
         if (this.auth != null && response.status.isUnauthorized) {
-          bool isExpired = Jwt.isExpired(this.auth!.token());
-          if (isExpired) {
-            throw HttpCallException(HttpExceptions.ExpiredToken);
+          if (Jwt.isExpired(this.auth!.token())) {
+            throw HttpCallException(
+              HttpExceptions.ExpiredToken,
+              extras: {
+                'expiresIn':
+                    Jwt.getExpiryDate(this.auth!.token())!.toIso8601String(),
+                'refreshTokenExpiresIn': Jwt.getExpiryDate(this.auth!.token())!
+                    .add(Duration(hours: 48)),
+              },
+            );
           }
         }
         throw HttpCallException(HttpExceptions.ClientError);

@@ -17,11 +17,15 @@ class HttpCallException implements Exception {
   /// | `Other`                  | When any other `Exception` occurs                      |
   HttpExceptions type;
 
+  /// The information useful to manage exception.
+  Map<String, dynamic> extras;
+
   /// The constructor for the exception.
   ///
-  /// Receive the [type] of the exception.
-  HttpCallException(HttpExceptions? type)
-      : this.type = type ?? HttpExceptions.Other;
+  /// Receive the [type] of the exception and [extras] values that can be used to manage the exception.
+  HttpCallException(HttpExceptions? type, {Map<String, dynamic>? extras})
+      : this.type = type ?? HttpExceptions.Other,
+        this.extras = extras ?? const {};
 
   @override
   String toString() {

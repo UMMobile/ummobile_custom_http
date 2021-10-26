@@ -82,15 +82,12 @@ void main() {
 
   group('[Exceptions]', () {
     test('Invalid JWT', () {
-      try {
-        UMMobileCustomHttp(
-          baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
-          auth: Auth(token: () => 'this_is_not_a_json_web_token'),
-        );
-      } catch (e) {
-        expect(e, isA<FormatException>());
-        expect(e.toString(), 'FormatException: Invalid token.');
-      }
+      expect(
+          () => UMMobileCustomHttp(
+                baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+                auth: Auth(token: () => 'this_is_not_a_json_web_token'),
+              ),
+          throwsA(isA<FormatException>()));
     });
 
     test('ServerError', () async {
@@ -136,11 +133,18 @@ void main() {
       bool shouldBeTrue = true;
       try {
         await http.customGet(path: '/documents');
+        // If reach this point the exception wasn't throw.
         shouldBeTrue = false;
       } catch (e) {
         expect(e, isA<HttpCallException>());
         if (e is HttpCallException) {
           expect(e.type, HttpExceptions.ExpiredToken);
+          expect(e.extras['expiresIn'], isNotNull);
+          expect(
+              DateTime.parse(e.extras['expiresIn'])
+                  .add(Duration(days: 2))
+                  .isBefore(DateTime.now()),
+              isTrue);
         }
       }
       expect(shouldBeTrue, isTrue);

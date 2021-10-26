@@ -16,7 +16,7 @@
 > Release date: 20/Oct/2021
 - Adds `queries` argument
 
-## 0.0.3
+## 0.0.3-beta1
 > Release date: 26/Oct/2021
 - Adds ExpiredToken exception
 - Adds validation for JWT
