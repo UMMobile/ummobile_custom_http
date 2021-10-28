@@ -21,3 +21,7 @@
 - Adds ExpiredToken exception
 - Adds validation for JWT
 - Improves Auth class usage
+
+## 0.0.3-beta2
+> Release date: 28/Oct/2021
+- Fixes format of authorization header value
