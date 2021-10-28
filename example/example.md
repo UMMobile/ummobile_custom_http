@@ -63,6 +63,7 @@ Throws an `HttpCallException` if an error occurs. The `HttpCallException` contai
 - `ServerDown`: when cannot connect to the backend.
 - `ClientOffline`: when cannot connect to `yahoo.com`.
 - `ExpiredToken`: when access token is expired & need to be refresh.
+- `Unauthorized`: when an error occurred with the authorization.
 - `Other`: when any other `Exception` occurs.
 
 You can use the Exception like:
@@ -70,9 +71,13 @@ You can use the Exception like:
 final http = UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
 try {
   await http.customGet(path: '/posts/1');
-} on HttpCallException catch(e) {
+} on ConnectionErrorException catch(e) {
   if(e.type === HttpException.ClientOffline) {
     // display that the client have no connection
+  }
+} on ClientErrorException catch(e) {
+  if(e.type === HttpException.ExpiredToken) {
+    // display that the token is expired
   }
 }
 ```

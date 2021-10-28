@@ -25,3 +25,11 @@
 ## 0.0.3-beta2
 > Release date: 28/Oct/2021
 - Fixes format of authorization header value
+- Adds Unauthorized exception
+- Updates HttpCallExceptions implementations:
+  - Adds ClientErrorException
+  - Adds ServerErrorException
+  - Adds ConnectionErrorException
+- Refactor checkInternetConnection:
+  - Renames to throwConnectionException
+  - Updates to throw a ConnectionErrorException instead of returning HttpException type

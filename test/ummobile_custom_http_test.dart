@@ -91,6 +91,7 @@ void main() {
     test('ServerError', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
+      bool shouldBeTrue = true;
       try {
         await http.customPost<PostTest>(
           path: '/posts',
@@ -102,25 +103,32 @@ void main() {
             body: json['body'],
           ),
         );
+        // If reach this point the exception wasn't throw.
+        shouldBeTrue = false;
       } catch (e) {
-        expect(e, isA<HttpCallException>());
-        if (e is HttpCallException) {
+        expect(e, isA<ServerErrorException>());
+        if (e is ServerErrorException) {
           expect(e.type, HttpExceptions.ServerError);
         }
       }
+      expect(shouldBeTrue, isTrue);
     });
 
     test('ClientError', () async {
       final http =
           UMMobileCustomHttp(baseUrl: 'https://jsonplaceholder.typicode.com');
+      bool shouldBeTrue = true;
       try {
-        await http.customGet<PostTest>(path: '/wonrg_path');
+        await http.customGet<PostTest>(path: '/wrong_path');
+        // If reach this point the exception wasn't throw.
+        shouldBeTrue = false;
       } catch (e) {
-        expect(e, isA<HttpCallException>());
-        if (e is HttpCallException) {
+        expect(e, isA<ClientErrorException>());
+        if (e is ClientErrorException) {
           expect(e.type, HttpExceptions.ClientError);
         }
       }
+      expect(shouldBeTrue, isTrue);
     });
 
     test('ExpiredToken', () async {
@@ -134,8 +142,8 @@ void main() {
         // If reach this point the exception wasn't throw.
         shouldBeTrue = false;
       } catch (e) {
-        expect(e, isA<HttpCallException>());
-        if (e is HttpCallException) {
+        expect(e, isA<ClientErrorException>());
+        if (e is ClientErrorException) {
           expect(e.type, HttpExceptions.ExpiredToken);
           expect(e.extras['expiresIn'], isNotNull);
           expect(
@@ -143,6 +151,24 @@ void main() {
                   .add(Duration(days: 2))
                   .isBefore(DateTime.now()),
               isTrue);
+        }
+      }
+      expect(shouldBeTrue, isTrue);
+    });
+
+    test('Unauthorized', () async {
+      final http = UMMobileCustomHttp(
+        baseUrl: 'https://wso2am.um.edu.mx/ummobile/v1/academic',
+      );
+      bool shouldBeTrue = true;
+      try {
+        await http.customGet(path: '/documents');
+        // If reach this point the exception wasn't throw.
+        shouldBeTrue = false;
+      } catch (e) {
+        expect(e, isA<ClientErrorException>());
+        if (e is ClientErrorException) {
+          expect(e.type, HttpExceptions.Unauthorized);
         }
       }
       expect(shouldBeTrue, isTrue);

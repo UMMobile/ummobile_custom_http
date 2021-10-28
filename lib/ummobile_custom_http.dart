@@ -8,15 +8,18 @@ import 'dart:convert';
 
 import 'package:get/get_connect.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
 import 'package:ummobile_custom_http/src/enums/http_methods.dart';
+import 'package:ummobile_custom_http/src/exceptions/client_error_exception.dart';
 import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
+import 'package:ummobile_custom_http/src/exceptions/server_error_exception.dart';
 import 'package:ummobile_custom_http/src/internet_status.dart';
 import 'package:ummobile_custom_http/src/models/auth.dart';
 
-// Export components
+// Export exception types
 export 'package:ummobile_custom_http/src/enums/http_exceptions.dart';
+// Export exceptions
 export 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
+// Export auth model
 export 'package:ummobile_custom_http/src/models/auth.dart';
 
 /// A Custom HTTP client
@@ -214,10 +217,12 @@ class UMMobileCustomHttp extends GetConnect {
                 : response.body)
             : response.body;
       } else if (response.status.between(300, 499)) {
-        if (this.auth != null && response.status.isUnauthorized) {
-          if (Jwt.isExpired(this.auth!.token())) {
-            throw HttpCallException(
-              HttpExceptions.ExpiredToken,
+        if (response.status.isUnauthorized) {
+          if (this.auth != null && Jwt.isExpired(this.auth!.token())) {
+            // Have authorization access token but is expired
+            throw ClientErrorException.expiredToken(
+              response,
+              message: 'Authorization access token is expired',
               extras: {
                 'expiresIn':
                     Jwt.getExpiryDate(this.auth!.token())!.toIso8601String(),
@@ -225,18 +230,19 @@ class UMMobileCustomHttp extends GetConnect {
                     .add(Duration(hours: 48)),
               },
             );
+          } else {
+            // An error occurred with the authorization
+            throw ClientErrorException.unauthorized(response);
           }
         }
-        throw HttpCallException(HttpExceptions.ClientError);
+        throw ClientErrorException(response);
       } else if (response.status.isServerError) {
-        throw HttpCallException(HttpExceptions.ServerError);
+        throw ServerErrorException(response);
       } else if (response.status.connectionError) {
-        throw HttpCallException(
-            await checkInternetConnection('${this.httpClient.baseUrl}$path'));
+        await throwConnectionException('${this.httpClient.baseUrl}$path');
       }
     } on TimeoutException catch (_) {
-      throw HttpCallException(
-          await checkInternetConnection('${this.httpClient.baseUrl}$path'));
+      await throwConnectionException('${this.httpClient.baseUrl}$path');
     }
     return data;
   }
