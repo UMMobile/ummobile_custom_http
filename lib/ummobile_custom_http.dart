@@ -12,7 +12,7 @@ import 'package:ummobile_custom_http/src/enums/http_methods.dart';
 import 'package:ummobile_custom_http/src/exceptions/client_error_exception.dart';
 import 'package:ummobile_custom_http/src/exceptions/http_call_exception.dart';
 import 'package:ummobile_custom_http/src/exceptions/server_error_exception.dart';
-import 'package:ummobile_custom_http/src/internet_status.dart';
+import 'package:ummobile_custom_http/src/throw_connection_exception.dart';
 import 'package:ummobile_custom_http/src/models/auth.dart';
 
 // Export exception types
