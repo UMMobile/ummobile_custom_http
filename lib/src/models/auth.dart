@@ -41,5 +41,5 @@ class Auth {
   ///
   /// If [this.tokenType] is empty then only return the returned value of [this.token()].
   String get format =>
-      this.tokenType.isNotEmpty ? '$this.tokenType $token()' : this.token();
+      this.tokenType.isNotEmpty ? '${this.tokenType} ${token()}' : this.token();
 }
