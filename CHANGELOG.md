@@ -33,3 +33,18 @@
 - Refactor checkInternetConnection:
   - Renames to throwConnectionException
   - Updates to throw a ConnectionErrorException instead of returning HttpException type
+
+## 0.0.3
+> Release date: 01/Nov/2021
+- Adds ExpiredToken exception
+- Adds validation for JWT
+- Improves Auth class usage
+- Fixes format of authorization header value
+- Adds Unauthorized exception
+- Updates HttpCallExceptions implementations:
+  - Adds ClientErrorException
+  - Adds ServerErrorException
+  - Adds ConnectionErrorException
+- Refactor checkInternetConnection:
+  - Renames to throwConnectionException
+  - Updates to throw a ConnectionErrorException instead of returning HttpException type
