@@ -1,7 +1,7 @@
 name: ummobile_custom_http
 description: The custom HTTP client with GetConnect used in the UMMobile App to make the request.
 version: 0.0.3
-homepage: https://github.com/ummobile/ummobile_custom_http
+homepage: https://github.com/UMMobile/ummobile_custom_http/tree/Javier-Web
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
