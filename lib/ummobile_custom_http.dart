@@ -6,6 +6,7 @@ library ummobile_custom_http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get_connect.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:ummobile_custom_http/src/enums/http_methods.dart';
@@ -236,13 +237,19 @@ class UMMobileCustomHttp extends GetConnect {
           }
         }
         throw ClientErrorException(response);
-      } else if (response.status.isServerError) {
+      }
+      if (kIsWeb) {
         throw ServerErrorException(response);
-      } else if (response.status.connectionError) {
+      } else {
         await throwConnectionException('${this.httpClient.baseUrl}$path');
       }
     } on TimeoutException catch (_) {
-      await throwConnectionException('${this.httpClient.baseUrl}$path');
+      if (kIsWeb) {
+        throw ConnectionErrorException.serverDown();
+      } else {
+        await throwConnectionException(
+            '${this.httpClient.baseUrl}$path'); // código para otras plataformas
+      }
     }
     return data;
   }
